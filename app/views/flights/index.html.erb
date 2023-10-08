@@ -1,0 +1,9 @@
+<h1>All Flights</h1>
+
+<ul>
+  <% @flights.each do |flight| %>
+    <li>
+      <%= "#{flight.start.strftime('%m-%d-%Y')} #{flight.departure_airport.code} - #{flight.arrival_airport.code} #{flight.flight_duration}" %>
+    </li>
+  <% end %>
+</ul>
