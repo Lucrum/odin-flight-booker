@@ -15,7 +15,7 @@ end
 
 p "Created #{airport_codes.length} airports"
 
-random_flights_amount = 10
+random_flights_amount = 100
 
 random_flights_amount.times do
   depart, arrive = airport_codes.sample(2)
@@ -23,7 +23,9 @@ random_flights_amount.times do
   depart_id = airport_codes.index(depart) + 1
   arrive_id = airport_codes.index(arrive) + 1
   # puts "departing from: #{depart}, #{depart_id} arriving to: #{arrive}, #{arrive_id}"
-  Flight.create!({ start: DateTime.now + rand(2..60), flight_duration: rand(120..1440),
+  time = DateTime.now.beginning_of_day +
+         rand(90).days + (rand(48) * 30).minutes
+  Flight.create!({ start: time, flight_duration: rand(120..1440),
                    departure_airport_id: depart_id, arrival_airport_id: arrive_id })
 end
 

@@ -1,9 +1,32 @@
 <h1>All Flights</h1>
 
-<ul>
-  <% @flights.each do |flight| %>
-    <li>
-      <%= "#{flight.start.strftime('%m-%d-%Y')} #{flight.departure_airport.code} - #{flight.arrival_airport.code} #{flight.flight_duration}" %>
-    </li>
+<%= form_with url: "/index", method: :get do |f| %>
+  <%= f.label :departure, "Depart from" %>
+  <%= select_tag(:departure, options_for_select(@airport_options)) %>
+  <%= f.label :arrival, "Arrive at" %>
+  <%= select_tag(:arrival, options_for_select(@airport_options)) %>
+  <%= f.label :leave, "Leave on" %>
+  <%= select_tag(:leave, options_for_select(@date_options)) %>
+  <%= f.label :passengers %>
+  <%= select_tag(:passengers, options_for_select(@passenger_options)) %>
+
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @flights.any? %>
+  <%= form_with url: "/bookings", method: :get do |f| %>
+    <%= f.hidden_field :passengers, value: @passenger_count %>
+    <ul>
+      <% @flights.each do |flight| %>
+        <li>
+          <%= f.label :selected_flight, "#{flight.start.strftime('%m-%d-%Y')} #{(flight.flight_duration.to_f / 60).truncate(1)} hours #{flight.departure_airport.code} - 
+          #{flight.arrival_airport.code}", value: flight.id %>
+          <%= f.radio_button :selected_flight, flight.id %>
+        </li>
+      <% end %>
+    </ul>
+    <%= f.submit "Book" %>
   <% end %>
-</ul>
+<% else %>
+  <div>No flights available</div>
+<% end %>
