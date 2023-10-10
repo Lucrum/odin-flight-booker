@@ -8,7 +8,7 @@ This project allows users to search for a one-way flight given a departure airpo
 
 # usage
 
-1. To run, download this repository and navigate into the folder.
+1. To run, download this repository and navigate into the folder. Run `bundle install` to install any necessary gems.
 
 2. Run `rake db:seed` to seed the database with 100 random flights.
 
