@@ -1,0 +1,28 @@
+<h1><%= "Booking flight from #{@booking.flight.departure_airport.code} to #{@booking.flight.arrival_airport.code}" %></h1>
+<h3><%= "Flight ID: #{@booking.flight.id}" %></h3>
+<h3><%= "Flight date & time: #{@booking.flight.start}" %></h3>
+
+<% if @booking.errors.any? %>
+  <ul>
+    <% @booking.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @booking do |f| %>
+  <%= f.hidden_field :flight_id, value: @booking.flight.id %>
+  
+  <%# @booking.passengers.each_with_index do |passengers, num| %>
+  <%= f.fields_for :passengers do |p_f| %>
+    <div><%#="Passenger #{num + 1}'s information"%></div>
+    <%= p_f.label :name %>
+    <%= p_f.text_field :name %><br>
+    <%= p_f.label :email %>
+    <%= p_f.email_field :email %><br>
+    <br>
+  <% end %>
+  <br>
+  <%# end %>
+  <%= f.submit %>
+<% end %>

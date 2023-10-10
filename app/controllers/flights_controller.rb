@@ -10,7 +10,9 @@ class FlightsController < ApplicationController
       @passenger_count = search_params[:passengers]
     else
       # fetch flights based on search params
-      @flights = Flight.all.order('start').eager_load(:departure_airport).eager_load(:arrival_airport)
+      @flights = Flight.all.order('start')
+                       .eager_load(:departure_airport)
+                       .eager_load(:arrival_airport)
       @passenger_count = 1
     end
     # search options
