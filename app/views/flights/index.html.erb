@@ -13,6 +13,10 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<div>
+  Please search for a flight before booking.
+</div>
+
 <% if @flights.any? %>
   <%= form_with url: "/bookings", method: :get do |f| %>
     <%= f.hidden_field :passengers, value: @passenger_count %>
@@ -22,11 +26,15 @@
           <%= f.label :selected_flight, "#{flight.start.strftime('%m-%d-%Y')} 
           #{(flight.flight_duration.to_f / 60).truncate(1)} hours #{flight.departure_airport.code} - 
           #{flight.arrival_airport.code}", value: flight.id %>
-          <%= f.radio_button :selected_flight, flight.id %>
+          <% if @allow_booking %>
+            <%= f.radio_button :selected_flight, flight.id %>
+          <% end %>
         </li>
       <% end %>
     </ul>
-    <%= f.submit "Book" %>
+    <% if @allow_booking %>
+      <%= f.submit "Book" %>
+    <% end %>
   <% end %>
 <% else %>
   <div>No flights available</div>
