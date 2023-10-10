@@ -19,7 +19,8 @@
     <ul>
       <% @flights.each do |flight| %>
         <li>
-          <%= f.label :selected_flight, "#{flight.start.strftime('%m-%d-%Y')} #{(flight.flight_duration.to_f / 60).truncate(1)} hours #{flight.departure_airport.code} - 
+          <%= f.label :selected_flight, "#{flight.start.strftime('%m-%d-%Y')} 
+          #{(flight.flight_duration.to_f / 60).truncate(1)} hours #{flight.departure_airport.code} - 
           #{flight.arrival_airport.code}", value: flight.id %>
           <%= f.radio_button :selected_flight, flight.id %>
         </li>

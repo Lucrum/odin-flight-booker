@@ -1,6 +1,8 @@
-<h1>Booking</h1>
+<h1>Your Booking</h1>
 
 <%= "#{@booking.flight.departure_airport.code} - #{@booking.flight.arrival_airport.code}"%>
+<br>
+<%= "#{@booking.flight.start}, #{(@booking.flight.flight_duration.to_f / 60).truncate(1)} hours"%>
 
 <ul>
   <% @booking.passengers.each do |passenger| %>
