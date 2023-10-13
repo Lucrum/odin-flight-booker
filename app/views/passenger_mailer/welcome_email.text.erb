@@ -1,0 +1,15 @@
+Thanks for booking your flight with us, <%= @passenger.name %>!
+
+Your flight is as follows:
+
+Depart from: <%= @flight.departure_airport.code %>
+Arrive at: <%= @flight.arrival_airport.code %>
+
+Flight length: <%= "#{(@flight.flight_duration.to_f / 60).truncate(1)} hours" %>
+
+Date: <%= @flight.start.to_date %>
+Time: <%= @flight.start.to_time %>
+
+To see your flight, visit this link: <%= booking_url(@booking) %>
+
+Thank you for choosing Slowpedia, and have a safe trip!

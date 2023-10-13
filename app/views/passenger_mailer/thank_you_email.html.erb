@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thanks for booking your flight with us, <%= @passenger.name %>!</h1>
+    <p>
+      Your flight is as follows:<br><br>
+
+      Depart from: <%= @flight.departure_airport.code %><br>
+      Arrive at: <%= @flight.arrival_airport.code %><br><br>
+
+      Flight length: <%= "#{(@flight.flight_duration.to_f / 60).truncate(1)} hours" %><br><br>
+
+      Date: <%= @flight.start.to_date %><br>
+      Time: <%= @flight.start.strftime("%I:%M%p") %><br><br>
+    </p>
+
+    <p>
+      To see your flight, click <%= link_to "here", booking_url(@booking) %><br>
+
+      Link not working? Paste this into your browser: <%= booking_url(@booking) %><br><br>
+    </p>
+
+    <p>
+      Thank you for choosing Slowpedia, and have a safe trip!
+    </p>
+  </body>
+</html>

@@ -18,10 +18,13 @@ class BookingsController < ApplicationController
     p @booking.inspect
 
     if @booking.save
+
+      @booking.passengers.each do |pass|
+        PassengerMailer.with(booking: @booking, passenger: pass).thank_you_email.deliver_now
+      end
+
       redirect_to @booking
     else
-      puts "CANNOT SAVE"
-      # @flight = Flight.find(booking_params[:flights_id])
       render :new, status: :unprocessable_entity
     end
   end
